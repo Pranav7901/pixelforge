@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react"
 import { useRouter } from 'next/navigation' 
+import Image from 'next/image';
 
 export default function BackgroundRemovalShowcase() {
 
@@ -27,11 +28,13 @@ export default function BackgroundRemovalShowcase() {
               </div>
               <div className="relative group">
                 <div className="aspect-square bg-zinc-800 rounded-xl overflow-hidden border border-zinc-700">
-                  <img
-                    src="/before.jpg"
-                    alt="Before background removal"
-                    className="w-full h-full object-cover"
-                  />
+                  <Image
+  src="/before.jpg"
+  alt="Before background removal"
+  fill // This makes the image responsive like `w-full h-full`
+  className="object-cover"
+  priority // Optional: load immediately if above-the-fold
+/>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
@@ -46,11 +49,15 @@ export default function BackgroundRemovalShowcase() {
               </div>
               <div className="relative group">
                 <div className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl overflow-hidden border border-[#00C896]/30">
-                  <img
-                    src="/after.png"
-                    alt="After background removal"
-                    className="w-full h-full object-cover"
-                  />
+                  
+
+<Image
+  src="/after.png"
+  alt="After background removal"
+  fill
+  className="object-cover"
+  priority // Remove this if the image is not above-the-fold
+/>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#00C896]/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>

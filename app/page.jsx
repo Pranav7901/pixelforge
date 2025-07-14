@@ -8,6 +8,8 @@ import { useState, useEffect,useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import LogoutModal from '@/components/LogoutModel';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -117,21 +119,24 @@ export default function Home() {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8 relative">
-            <a href="/generate" className="text-gray-300 hover:text-white transition-colors">Generate</a>
-            <a href="/remove" className="text-gray-300 hover:text-white transition-colors">Remove BG</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+            <Link href="/generate" className="text-gray-300 hover:text-white transition-colors">Generate</Link>
+<Link href="/remove" className="text-gray-300 hover:text-white transition-colors">Remove BG</Link>
+<Link href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</Link>
 
             {status === 'loading' ? null : session?.user ? (
               <button
                 onClick={() => setShowLogoutModal(true)}
                 className="focus:outline-none"
               >
-                <img
-                  ref={avatarRef}
-                  src={session.user.image || ''}
-                  alt="Profile"
-                  className="w-8 h-8 rounded-full border border-gray-500 hover:brightness-110"
-                />
+                <Image
+  ref={avatarRef}
+  src={session.user.image || '/fallback-avatar.png'} // Optional fallback
+  alt="Profile"
+  width={32}
+  height={32}
+  className="rounded-full border border-gray-500 hover:brightness-110"
+  unoptimized={false} // You can set this to true if it's very dynamic or from a domain not configured
+/>
               </button>
             ) : (
               <button
@@ -291,7 +296,12 @@ export default function Home() {
                 className="group relative overflow-hidden rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-[#00C896]/50 transition-colors"
               >
                 <div className="aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 flex items-center justify-center">
-                  <img  className="w-full h-full" src={item.image} alt="" />
+                  <Image
+  src={item.image}
+  alt="Product Image"
+  fill
+  className="object-cover w-full h-full"
+/>
                 </div>
                 <div className="p-4">
                   <h3 className="font-semibold mb-1">{item.artType}</h3>

@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef } from "react"
 import Link from "next/link"
+import Image from 'next/image';
 
 export default function BackgroundRemovalPage() {
   const [originalImage, setOriginalImage] = useState<string | null>(null)
@@ -215,11 +216,14 @@ export default function BackgroundRemovalPage() {
                   <div>
                     <h4 className="text-sm font-medium text-gray-400 mb-3">Original</h4>
                     <div className="aspect-square bg-zinc-800 rounded-lg overflow-hidden">
-                      <img
-                        src={originalImage || "/placeholder.svg"}
-                        alt="Original image"
-                        className="w-full h-full object-cover"
-                      />
+                      <Image
+    src={originalImage || "/placeholder.svg"}
+    alt="Original image"
+    fill
+    className="object-cover"
+    sizes="100vw" // Optional: improve responsive loading
+    priority // Optional: use only if above-the-fold
+  />
                     </div>
                   </div>
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-
+import Image from 'next/image';
 export default function GeneratePage() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
@@ -183,11 +183,13 @@ export default function GeneratePage() {
                 <div className="w-full h-full">
                   <div className="group relative">
                     <div className="aspect-square bg-zinc-800 rounded-lg overflow-hidden">
-                      <img
-                        src={imageUrl || "/placeholder.svg"}
-                        alt="Generated image"
-                        className="w-full h-full object-cover"
-                      />
+                      <Image
+    src={imageUrl || "/placeholder.svg"}
+    alt="Generated image"
+    fill
+    className="object-cover"
+    sizes="(max-width: 768px) 100vw, 33vw"
+  />
                     </div>
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                       <button
